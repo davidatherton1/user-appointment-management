@@ -10,15 +10,4 @@ import java.util.UUID;
 @Repository
 public interface UsersRepository extends JpaRepository<UserEntity, UUID> {
 
-    // UserEntity updateUserEntity(UserEntity userEntity, UUID uuid);
-//    void insertUser(UserEntity userEntity);
-//
-//    UserEntity getUser(UUID uuid);
-//
-//    void updateUser(UserEntity userEntity);
-//
-//    void deleteUser(UUID uuid);
-//
-//    List<UserEntity> listUsers();
-
 }

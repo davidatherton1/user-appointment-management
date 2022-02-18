@@ -37,10 +37,10 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-//    @DeleteMapping("/removeUser")
-//    public void removeUser(@RequestParam UUID uuid) {
-//        userService.
-//    }
+    @DeleteMapping("/removeUser")
+    public void removeUser(@RequestParam UUID uuid) {
+        userService.deleteUser(uuid);
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
