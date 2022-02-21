@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="user-service" />
+        <module name="management-service" />
       </profile>
       <profile name="Annotation profile for appointment-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -24,12 +25,14 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="appointment-service" target="17" />
+      <module name="management-service" target="17" />
       <module name="user-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="appointment-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="management-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
