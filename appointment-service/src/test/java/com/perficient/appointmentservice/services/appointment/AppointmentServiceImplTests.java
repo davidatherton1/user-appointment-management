@@ -3,7 +3,6 @@ package com.perficient.appointmentservice.services.appointment;
 import appointment.model.AppointmentDto;
 import com.perficient.appointmentservice.entity.Appointment;
 import com.perficient.appointmentservice.repositories.AppointmentRepository;
-import com.perficient.appointmentservice.services.AppointmentService;
 import com.perficient.appointmentservice.services.AppointmentServiceImpl;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -69,6 +68,19 @@ public class AppointmentServiceImplTests {
     }
 
     @Test
+    void findAllApptsByUserIdTest(){
+        List<Appointment> appts = new ArrayList<>();
+        appts.add(new Appointment());
+        appts.add(new Appointment());
+        when(appointmentRepository.findByUser(any())).thenReturn(appts);
+        UUID uuid = UUID.randomUUID();
+        List<AppointmentDto> allAppts = service.getApptsByUserId(uuid);
+        assertNotNull(allAppts);
+        assertEquals(2, allAppts.size());
+        verify(appointmentRepository).findByUser(uuid);
+    }
+
+    @Test
     void deleteApptByIdTest(){
         UUID id = UUID.randomUUID();
         doNothing().when(appointmentRepository).deleteById(id);
@@ -85,7 +97,7 @@ public class AppointmentServiceImplTests {
                 .description("")
                 .endTime(OffsetDateTime.now())
                 .startTime(OffsetDateTime.now())
-                .userId(UUID.randomUUID())
+                .user(UUID.randomUUID())
                 .build();
         Appointment appt = new Appointment();
         UUID id = UUID.randomUUID();

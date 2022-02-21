@@ -32,6 +32,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public List<AppointmentDto> getApptsByUserId(UUID userId) {
+        List<Appointment> appts = appointmentRepository.findByUser(userId);
+        List<AppointmentDto> apptsDto = new ArrayList<>();
+        appts.forEach(e -> apptsDto.add(appointmentMapper.apptToApptDto(e)));
+        return apptsDto;
+    }
+
+    @Override
     public AppointmentDto updateAppt(UUID id, AppointmentDto apptDto) {
         Appointment appt = appointmentRepository.findById(id).orElseThrow();
         appt.setApptType(apptDto.getApptType());
@@ -39,7 +47,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appt.setDescription(apptDto.getDescription());
         appt.setEndTime(apptDto.getEndTime());
         appt.setStartTime(apptDto.getStartTime());
-        appt.setUserId(apptDto.getUserId());
+        appt.setUser(apptDto.getUser());
 
         return appointmentMapper.apptToApptDto(appointmentRepository.save(appt));
     }

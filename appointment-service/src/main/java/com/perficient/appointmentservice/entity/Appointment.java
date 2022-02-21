@@ -34,5 +34,7 @@ public class Appointment {
 
     private OffsetDateTime endTime;
 
-    private UUID userId;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
+    private UUID user;
 }

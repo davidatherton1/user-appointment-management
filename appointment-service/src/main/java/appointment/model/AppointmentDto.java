@@ -22,5 +22,5 @@ public class AppointmentDto {
     private String apptName;
     private String apptType;
     private String description;
-    private UUID userId;
+    private UUID user;
 }

@@ -11,6 +11,8 @@ public interface AppointmentService {
 
     AppointmentDto getApptById(UUID id);
 
+    List<AppointmentDto> getApptsByUserId(UUID id);
+
     AppointmentDto updateAppt(UUID id, AppointmentDto apptDto);
 
     AppointmentDto addAppt(AppointmentDto appt);

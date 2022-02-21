@@ -59,6 +59,18 @@ public class AppointmentControllerTests {
     }
 
     @Test
+    void getAllApptsByUserId() throws Exception{
+        List<AppointmentDto> appts = new ArrayList<>();
+        appts.add(validApptDto());
+        appts.add(validApptDto());
+        UUID id = UUID.randomUUID();
+        when(appointmentService.getApptsByUserId(any())).thenReturn(appts);
+
+        mockMvc.perform(get("/appointment/allAppts/" + UUID.randomUUID()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void updateAppt() throws Exception {
         when(appointmentService.updateAppt(any(), any())).thenReturn(validApptDto());
 

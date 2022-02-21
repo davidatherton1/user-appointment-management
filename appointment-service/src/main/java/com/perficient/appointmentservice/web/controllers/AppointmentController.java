@@ -2,6 +2,7 @@ package com.perficient.appointmentservice.web.controllers;
 
 
 import appointment.model.AppointmentDto;
+import com.perficient.appointmentservice.entity.Appointment;
 import com.perficient.appointmentservice.services.AppointmentServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,11 @@ public class AppointmentController {
     @GetMapping("appointment/allAppts")
     public ResponseEntity<List<AppointmentDto>> getAllAppts(){
         return new ResponseEntity<>(appointmentService.getAllAppts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/appointment/allAppts/{userId}")
+    public ResponseEntity<List<AppointmentDto>> getAllApptsByUserId(@PathVariable("userId") UUID userId){
+        return new ResponseEntity<>(appointmentService.getApptsByUserId(userId), HttpStatus.OK);
     }
 
     @PostMapping(path = "appointment")
