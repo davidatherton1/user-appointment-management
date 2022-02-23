@@ -41,4 +41,8 @@ public class UserEntity {
 
     @Column
     private String phoneNumber;
+
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false)
+    private UUID appointment;
 }

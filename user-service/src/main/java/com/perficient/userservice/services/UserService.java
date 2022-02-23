@@ -15,8 +15,13 @@ public class UserService {
 
     private UsersRepository usersRepository;
 
-    public void createUser(UserEntity userEntity) {
-        usersRepository.save(userEntity);
+    @Autowired
+    public void setUsersRepository(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+
+    public UserEntity createUser(UserEntity userEntity) {
+        return usersRepository.save(userEntity);
     }
 
     public List<UserEntity> getUsers() {
@@ -55,12 +60,14 @@ public class UserService {
 
     }
 
-     public void deleteUser(UUID uuid) {
+    public void deleteUser(UUID uuid) {
+
+        // Check that user exists first, or else throw a resource not found exception
+        usersRepository.findById(uuid).orElseThrow(() ->
+                new ResourceNotFoundException("User", "UUID", uuid)
+        );
+
         usersRepository.deleteById(uuid);
      }
 
-    @Autowired
-    public void setUsersRepository(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
 }
