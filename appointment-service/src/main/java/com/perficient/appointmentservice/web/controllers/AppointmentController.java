@@ -29,12 +29,12 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentService.getApptById(apptId), HttpStatus.OK);
     }
 
-    @GetMapping("appointment/allAppts")
+    @GetMapping("appointment")
     public ResponseEntity<List<AppointmentDto>> getAllAppts(){
         return new ResponseEntity<>(appointmentService.getAllAppts(), HttpStatus.OK);
     }
 
-    @GetMapping("/appointment/allAppts/{userId}")
+    @GetMapping("/appointment/user/{userId}")
     public ResponseEntity<List<AppointmentDto>> getAllApptsByUserId(@PathVariable("userId") UUID userId){
         return new ResponseEntity<>(appointmentService.getApptsByUserId(userId), HttpStatus.OK);
     }
@@ -44,13 +44,13 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentService.addAppt(apptDto), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("appointment/delete/{apptId}")
+    @DeleteMapping("appointment/{apptId}")
     public ResponseEntity<Void> deleteAppt(@PathVariable("apptId") UUID apptId){
         appointmentService.deleteApptById(apptId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("appointment/update/{apptId}")
+    @PutMapping("appointment/{apptId}")
     public ResponseEntity<AppointmentDto> updateAppt(@PathVariable("apptId") UUID apptId,
                                        @RequestBody @Validated AppointmentDto apptDto){
         return new ResponseEntity<>(appointmentService.updateAppt(apptId, apptDto), HttpStatus.OK);

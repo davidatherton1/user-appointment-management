@@ -43,7 +43,7 @@ public class AppointmentControllerTests {
     void deleteApptById() throws Exception {
         doNothing().when(appointmentService).deleteApptById(any());
 
-        mockMvc.perform(delete("/appointment/delete/" + UUID.randomUUID()))
+        mockMvc.perform(delete("/appointment/" + UUID.randomUUID()))
                 .andExpect(status().isOk());
     }
 
@@ -54,7 +54,7 @@ public class AppointmentControllerTests {
         appts.add(validApptDto());
         when(appointmentService.getAllAppts()).thenReturn(appts);
 
-        mockMvc.perform(get("/appointment/allAppts"))
+        mockMvc.perform(get("/appointment"))
                 .andExpect(status().isOk());
     }
 
@@ -66,7 +66,7 @@ public class AppointmentControllerTests {
         UUID id = UUID.randomUUID();
         when(appointmentService.getApptsByUserId(any())).thenReturn(appts);
 
-        mockMvc.perform(get("/appointment/allAppts/" + UUID.randomUUID()))
+        mockMvc.perform(get("/appointment/user/" + UUID.randomUUID()))
                 .andExpect(status().isOk());
     }
 
@@ -76,7 +76,7 @@ public class AppointmentControllerTests {
 
         String apptDtoJson = objectMapper.writeValueAsString(validApptDto());
 
-        mockMvc.perform((put("/appointment/update/" + UUID.randomUUID()))
+        mockMvc.perform((put("/appointment/" + UUID.randomUUID()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(apptDtoJson))
                 .andExpect(status().isOk());
@@ -88,7 +88,7 @@ public class AppointmentControllerTests {
 
         String apptDtoJson = objectMapper.writeValueAsString(validApptDto());
 
-        mockMvc.perform(post("/appointment/")
+        mockMvc.perform(post("/appointment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(apptDtoJson))
                 .andExpect(status().isCreated());
