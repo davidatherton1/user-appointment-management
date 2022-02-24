@@ -44,4 +44,9 @@ public class ManagementServiceImpl implements ManagementService{
     public AppointmentDto updateAppt(UUID id, AppointmentDto apptDto) {
         return appointmentService.updateAppt(id, apptDto);
     }
+
+    @Override
+    public List<AppointmentDto> getApptbyUserId(UUID id) {
+        return appointmentService.getApptByUserId(id);
+    }
 }

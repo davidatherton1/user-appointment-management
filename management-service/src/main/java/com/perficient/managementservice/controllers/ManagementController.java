@@ -33,6 +33,13 @@ public class ManagementController {
         return new ResponseEntity<>(appt, HttpStatus.OK);
     }
 
+    @GetMapping("management/appointment/user/{id}")
+    ResponseEntity<List<AppointmentDto>> getApptByUserId(@PathVariable("id")UUID id ){
+        List<AppointmentDto> appt = managementService.getApptbyUserId(id);
+
+        return new ResponseEntity<>(appt, HttpStatus.OK);
+    }
+
     @PutMapping("/management/appointment/{id}")
     ResponseEntity<AppointmentDto> updateAppt(@PathVariable("id") UUID id,
                                               @RequestBody @Validated AppointmentDto apptDto){

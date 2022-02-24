@@ -60,4 +60,12 @@ public class AppointmentServiceRestTemplate {
 
         return addedAppt.getBody();
     }
+
+    public List<AppointmentDto> getApptByUserId(UUID id){
+        ResponseEntity<List<AppointmentDto>> appt = restTemplate.exchange(APPOINTMENT_PATH + "user/" + "{id}", HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<AppointmentDto>>(){}, id);
+
+        return appt.getBody();
+
+    }
 }
