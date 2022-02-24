@@ -32,7 +32,7 @@ public class AppointmentServiceRestTemplate {
         ResponseEntity<AppointmentDto> appt = restTemplate.exchange(APPOINTMENT_PATH + "{id}", HttpMethod.GET, null,
                 new ParameterizedTypeReference<AppointmentDto>(){}, id);
 
-        return  appt.getBody();
+        return appt.getBody();
 
     }
 
