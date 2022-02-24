@@ -24,7 +24,8 @@ public class UserServiceTests {
     public void userCreationTest() {
         UserEntity userEntity = new UserEntity();
 
-        doNothing().when(userService).createUser(userEntity);
+//        doNothing().when(userService).createUser(userEntity);
+        when(userService.createUser(userEntity)).thenReturn(userEntity);
 
         userService.createUser(userEntity);
     }
