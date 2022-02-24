@@ -1,9 +1,8 @@
-package com.perficient.appointmentservice.web.controller;
+package com.perficient.managementservice.controllers;
 
-import appointment.model.AppointmentDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perficient.appointmentservice.services.AppointmentServiceImpl;
-import com.perficient.appointmentservice.web.controllers.AppointmentController;
+import com.perficient.managementservice.services.appointment.AppointmentDto;
+import com.perficient.managementservice.services.management.ManagementServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,9 +18,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = AppointmentController.class)
-public class AppointmentControllerTests {
+@WebMvcTest(controllers = ManagementController.class)
+public class ManagementControllerTests {
 
+    private static final String APPOINTMENT_URL = "/management/appointment/";
     @Autowired
     private MockMvc mockMvc;
 
@@ -29,21 +29,13 @@ public class AppointmentControllerTests {
     ObjectMapper objectMapper;
 
     @MockBean
-    AppointmentServiceImpl appointmentService;
+    ManagementServiceImpl managementService;
 
     @Test
-    void getApptById() throws Exception {
-        when(appointmentService.getApptById(any())).thenReturn(validApptDto());
+    void getAppt() throws Exception{
+        when(managementService.getAppt(any())).thenReturn(validApptDto());
 
-        mockMvc.perform(get("/appointment/" + UUID.randomUUID()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void deleteApptById() throws Exception {
-        doNothing().when(appointmentService).deleteApptById(any());
-
-        mockMvc.perform(delete("/appointment/" + UUID.randomUUID()))
+        mockMvc.perform(get(APPOINTMENT_URL + UUID.randomUUID()))
                 .andExpect(status().isOk());
     }
 
@@ -52,46 +44,44 @@ public class AppointmentControllerTests {
         List<AppointmentDto> appts = new ArrayList<>();
         appts.add(validApptDto());
         appts.add(validApptDto());
-        when(appointmentService.getAllAppts()).thenReturn(appts);
+        when(managementService.getAllAppts()).thenReturn(appts);
 
-        mockMvc.perform(get("/appointment"))
+        mockMvc.perform(get(APPOINTMENT_URL))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void getAllApptsByUserId() throws Exception{
-        List<AppointmentDto> appts = new ArrayList<>();
-        appts.add(validApptDto());
-        appts.add(validApptDto());
-        UUID id = UUID.randomUUID();
-        when(appointmentService.getApptsByUserId(any())).thenReturn(appts);
+    void deleteAppt() throws Exception{
+        doNothing().when(managementService).deleteAppt(any());
 
-        mockMvc.perform(get("/appointment/user/" + UUID.randomUUID()))
+        mockMvc.perform(delete(APPOINTMENT_URL + UUID.randomUUID()))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void updateAppt() throws Exception {
-        when(appointmentService.updateAppt(any(), any())).thenReturn(validApptDto());
+    void updateAppt() throws Exception{
+        when(managementService.updateAppt(any(), any())).thenReturn(validApptDto());
 
         String apptDtoJson = objectMapper.writeValueAsString(validApptDto());
 
-        mockMvc.perform((put("/appointment/" + UUID.randomUUID()))
+        mockMvc.perform((put(APPOINTMENT_URL + UUID.randomUUID()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(apptDtoJson))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void addAppt() throws Exception {
-        when(appointmentService.addAppt(any())).thenReturn(validApptDto());
+    void addAppt() throws Exception{
+        when(managementService.addAppt(any())).thenReturn(validApptDto());
 
         String apptDtoJson = objectMapper.writeValueAsString(validApptDto());
 
-        mockMvc.perform(post("/appointment")
+        mockMvc.perform((post(APPOINTMENT_URL))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(apptDtoJson))
                 .andExpect(status().isCreated());
+
+
     }
 
     AppointmentDto validApptDto(){

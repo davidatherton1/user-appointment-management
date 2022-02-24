@@ -5,6 +5,7 @@ import com.perficient.appointmentservice.entity.Appointment;
 import com.perficient.appointmentservice.repositories.AppointmentRepository;
 import com.perficient.appointmentservice.web.controllers.NotFoundException;
 import com.perficient.appointmentservice.web.mappers.AppointmentMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,15 +16,14 @@ import java.util.UUID;
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
 
-    private final AppointmentRepository appointmentRepository;
+    //TODO: Add exception handling
+    //TODO: Add comments and logging
 
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
-    private final AppointmentMapper appointmentMapper;
-
-    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper) {
-        this.appointmentRepository = appointmentRepository;
-        this.appointmentMapper = appointmentMapper;
-    }
+    @Autowired
+    private AppointmentMapper appointmentMapper;
 
     @Override
     public AppointmentDto getApptById(UUID id) {
@@ -41,7 +41,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDto updateAppt(UUID id, AppointmentDto apptDto) {
-        Appointment appt = appointmentRepository.findById(id).orElseThrow();
+        Appointment appt = appointmentRepository.findById(id).orElseThrow(NotFoundException::new);
         appt.setApptType(apptDto.getApptType());
         appt.setApptName(apptDto.getApptName());
         appt.setDescription(apptDto.getDescription());
