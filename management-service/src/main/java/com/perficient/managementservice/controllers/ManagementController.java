@@ -2,10 +2,13 @@ package com.perficient.managementservice.controllers;
 
 import com.perficient.managementservice.services.appointment.AppointmentDto;
 import com.perficient.managementservice.services.management.ManagementServiceImpl;
+import com.perficient.managementservice.services.management.UserServiceImpl;
+import com.perficient.managementservice.services.user.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +17,11 @@ import java.util.UUID;
 public class ManagementController {
 
     private final ManagementServiceImpl managementService;
+    private final UserServiceImpl userService;
 
-    public ManagementController(ManagementServiceImpl managementService) {
+    public ManagementController(ManagementServiceImpl managementService, UserServiceImpl userService) {
         this.managementService = managementService;
+        this.userService = userService;
     }
 
     @GetMapping ("/management/appointment")
@@ -61,5 +66,44 @@ public class ManagementController {
         AppointmentDto addedAppt = managementService.addAppt(apptDto);
 
         return new ResponseEntity<>(addedAppt, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/management/users")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> allUsers = userService.allUsers();
+
+        return new ResponseEntity<>(allUsers, HttpStatus.OK);
+    }
+
+    @GetMapping("/management/user")
+    public ResponseEntity<UserDto> getUserById(@RequestParam("id") UUID id) {
+        UserDto userDto  = userService.getUserById(id);
+
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/management/user")
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        return userService.createUser(userDto);
+    }
+
+    @PutMapping("/management/user")
+    public ResponseEntity<UserDto> updateUser(@RequestParam("id") UUID id, @RequestBody UserDto userDto) {
+        try {
+            return new ResponseEntity<>(userService.updateUser(id, userDto), HttpStatus.OK);
+        } catch (HttpClientErrorException hcee) {
+            return new ResponseEntity(hcee.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/management/user")
+    public ResponseEntity<String> deleteUser(@RequestParam("id") UUID id) {
+        try {
+            String serverResponse = userService.deleteUser(id);
+
+            return new ResponseEntity<>(serverResponse, HttpStatus.OK);
+        } catch (HttpClientErrorException hcee) {
+            return new ResponseEntity<>(hcee.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }

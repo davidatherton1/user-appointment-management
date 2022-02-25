@@ -48,9 +48,14 @@ public class UserController {
 
     @PutMapping("/user")
     public ResponseEntity<UserEntity> updateUser(@RequestParam("id") UUID uuid, @RequestBody UserEntity userEntity) {
-        UserEntity updatedUser = userService.updateUser(userEntity, uuid);
+        try {
+            UserEntity updatedUser = userService.updateUser(userEntity, uuid);
 
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } catch (ResourceNotFoundException rnfe) {
+            return new ResponseEntity(rnfe.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @DeleteMapping("/user")
