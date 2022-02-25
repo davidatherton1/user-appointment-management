@@ -5,6 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -26,12 +27,16 @@ public class AppointmentServiceTests {
     @Mock
     RestTemplate restTemplate;
 
+    @Mock
+    RestTemplateBuilder restTemplateBuilder;
+
     @InjectMocks
     AppointmentServiceRestTemplate appointmentService;
 
 //    @Test
 //    void getAllAppts(){
 //        ResponseEntity<List<AppointmentDto>> response = new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+//        when(restTemplateBuilder.build()).thenReturn(new RestTemplate());
 //        when(restTemplate.exchange(Mockito.anyString() ,Mockito.<HttpMethod> any(), Mockito.<HttpEntity<?>> any(), Mockito.<Class<List<AppointmentDto>>> any())).thenReturn(response);
 //
 //        List<AppointmentDto> appts = appointmentService.getAllAppts();

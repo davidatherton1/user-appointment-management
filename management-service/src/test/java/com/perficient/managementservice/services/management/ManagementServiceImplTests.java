@@ -74,4 +74,15 @@ public class ManagementServiceImplTests {
         verify(appointmentService).updateAppt(id, appt);
     }
 
+    @Test
+    void getApptByUserId(){
+        List<AppointmentDto> appts = new ArrayList<>();
+        appts.add(new AppointmentDto());
+        appts.add(new AppointmentDto());
+
+        when(appointmentService.getApptByUserId(any())).thenReturn(appts);
+        List<AppointmentDto> userAppts = managementService.getApptbyUserId(UUID.randomUUID());
+        assertNotNull(userAppts);
+        verify(appointmentService).getApptByUserId(any());
+    }
 }

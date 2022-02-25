@@ -19,6 +19,8 @@ public class ManagementController {
         this.managementService = managementService;
     }
 
+
+    //Get all appointments
     @GetMapping ("/management/appointment")
     ResponseEntity<List<AppointmentDto>> getAllAppts(){
         List<AppointmentDto> appts = managementService.getAllAppts();
@@ -26,6 +28,7 @@ public class ManagementController {
         return new ResponseEntity<>(appts, HttpStatus.OK);
     }
 
+    //Get appointment by id
     @GetMapping("/management/appointment/{id}")
     ResponseEntity<AppointmentDto> getApptById(@PathVariable("id")UUID id){
         AppointmentDto appt = managementService.getAppt(id);
@@ -33,6 +36,8 @@ public class ManagementController {
         return new ResponseEntity<>(appt, HttpStatus.OK);
     }
 
+
+    //Get appointment by user id
     @GetMapping("management/appointment/user/{id}")
     ResponseEntity<List<AppointmentDto>> getApptByUserId(@PathVariable("id")UUID id ){
         List<AppointmentDto> appt = managementService.getApptbyUserId(id);
@@ -40,6 +45,8 @@ public class ManagementController {
         return new ResponseEntity<>(appt, HttpStatus.OK);
     }
 
+
+    //Update appointment by id
     @PutMapping("/management/appointment/{id}")
     ResponseEntity<AppointmentDto> updateAppt(@PathVariable("id") UUID id,
                                               @RequestBody @Validated AppointmentDto apptDto){
@@ -49,6 +56,7 @@ public class ManagementController {
 
     }
 
+    //Delete appointment by id
     @DeleteMapping("/management/appointment/{id}")
     ResponseEntity<Void> deleteAppt(@PathVariable("id") UUID id){
         managementService.deleteAppt(id);
@@ -56,6 +64,7 @@ public class ManagementController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //Update appointment
     @PostMapping("/management/appointment")
     ResponseEntity<AppointmentDto> addAppt(@RequestBody @Validated AppointmentDto apptDto){
         AppointmentDto addedAppt = managementService.addAppt(apptDto);

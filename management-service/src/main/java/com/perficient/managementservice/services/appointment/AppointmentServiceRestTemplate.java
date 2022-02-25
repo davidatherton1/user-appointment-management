@@ -1,6 +1,7 @@
 package com.perficient.managementservice.services.appointment;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -16,9 +17,9 @@ public class AppointmentServiceRestTemplate {
     public static final String APPOINTMENT_PATH = "http://localhost:8080/appointment/";
     private final RestTemplate restTemplate;
 
-    public AppointmentServiceRestTemplate() {
+    public AppointmentServiceRestTemplate(RestTemplateBuilder restTemplateBuilder) {
 
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     public List<AppointmentDto> getAllAppts(){

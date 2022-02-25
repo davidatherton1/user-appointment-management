@@ -84,6 +84,17 @@ public class ManagementControllerTests {
 
     }
 
+    @Test
+    void getApptByUserId() throws Exception{
+        List<AppointmentDto> appts = new ArrayList<>();
+        appts.add(validApptDto());
+        appts.add(validApptDto());
+        when(managementService.getApptbyUserId(any())).thenReturn(appts);
+
+        mockMvc.perform(get(APPOINTMENT_URL + "user/" + UUID.randomUUID()))
+                .andExpect(status().isOk());
+    }
+
     AppointmentDto validApptDto(){
         return AppointmentDto.builder()
                 .apptName("Test Appointment")
