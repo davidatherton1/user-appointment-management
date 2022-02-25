@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
     <title>Title</title>
 </head>
-<body>
+<body onload="onLoadUserInfo()">
     <div>
         <h1>User Info:</h1>
-        <b>First Name:</b>
-        <b>Last Name:</b>
-        <b>Age:</b>
-        <b>Gender:</b>
-        <b>Phone Number:</b>
-        <b>Email Address:</b>
+        <b id="userFirst">First Name:</b>
+        <b id="userLast">Last Name:</b>
+        <b id="userAge">Age:</b>
+        <b id="userGender">Gender:</b>
+        <b id="userNumber">Phone Number:</b>
+        <b id="userEmail">Email Address:</b>
     </div>
     <div>
         <h1>Appointments</h1>
-        <table>
+        <table id="appointmentTable">
             <tr>
                 <th>Name</th>
                 <th>Type</th>
@@ -25,6 +27,7 @@
                 <th>Description</th>
             </tr>
         </table>
+        <a href="addAppointment.html">Add Appointment</a>
     </div>
 </body>
 </html>
