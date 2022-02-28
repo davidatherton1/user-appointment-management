@@ -8,3 +8,7 @@ th, td {
     text-align: left;
 
 }
+
+#id-container {
+    display: none;
+}
