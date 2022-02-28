@@ -3,33 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="addUser.js"></script>
 </head>
 <body>
     <h1>Add User</h1>
     <form>
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName">
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName">
+        </div>
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName">
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName">
+        </div>
 
-        <label for="age">Birthday:</label>
-        <input type="date" id="age">
 
-        <label for="gender">Gender:</label>
-        <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
+        <div>
+            <label for="age">Age:</label>
+            <input type="text" id="age">
+        </div>
 
-        <label for="emailAddress">Email:</label>
-        <input type="text" id="emailAddress">
+        <div>
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+        </div>
 
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber">
+        <div>
+            <label for="emailAddress">Email:</label>
+            <input type="text" id="emailAddress">
+        </div>
 
-        <input type="submit">
+        <div>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber">
+        </div>
+
+        <div>
+<!--            <input type="submit">-->
+            <button onclick="addUser()">Test</button>
+        </div>
+
     </form>
 </body>
 </html>

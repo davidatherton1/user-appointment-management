@@ -1,6 +1,7 @@
 $(function () {
     $('table.userTable tr').click(function (){
-        window.location.href ='userInfo.html?id=' + $(this).data('id')
+        // console.log($(this).data('uuid'))
+        window.location.href ='userInfo.html?id=' + $(this).data('uuid')
     })
 })
 
@@ -13,16 +14,36 @@ function onLoadUserInfo(){
 
     const userId = urlParam.get('id')
 
-    $.get('http://localhost:8082/management/user/' + userId, function(data){
-        document.getElementById('userFirst').innerHTML += data.firstName
-        document.getElementById('userLast').innerHTML += data.lastName
-        document.getElementById('userAge').innerHTML += data.age
-        document.getElementById('userGender').innerHTML += data.gender
-        document.getElementById('userNumber').innerHTML += data.phoneNumber
-        document.getElementById('userEmail').innerHTML += data.email
+    $.ajax({
+        url: "http://localhost:8082/management/user/",
+        type: "GET",
+        data: {
+            "id": userId
+        },
+        success: function (data){
+                document.getElementById('userFirst').innerHTML += data.firstName
+                document.getElementById('userLast').innerHTML += data.lastName
+                document.getElementById('userAge').innerHTML += data.age
+                document.getElementById('userGender').innerHTML += data.gender
+                document.getElementById('userNumber').innerHTML += data.phoneNumber
+                document.getElementById('userEmail').innerHTML += data.emailAddress
+        },
+        error: function (err){
+
+        }
     })
 
+    // $.get('http://localhost:8082/management/user/' + userId, function(data){
+    //     document.getElementById('userFirst').innerHTML += data.firstName
+    //     document.getElementById('userLast').innerHTML += data.lastName
+    //     document.getElementById('userAge').innerHTML += data.age
+    //     document.getElementById('userGender').innerHTML += data.gender
+    //     document.getElementById('userNumber').innerHTML += data.phoneNumber
+    //     document.getElementById('userEmail').innerHTML += data.email
+    // })
+
     $.get('http://localhost:8082/management/appointment/user/' + userId, function (data){
+        console.log(data)
         let apptTable = document.getElementById('appointmentTable')
         data.forEach(element => {
             let newRow = apptTable.insertRow()

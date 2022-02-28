@@ -13,7 +13,7 @@ import java.util.UUID;
 @Slf4j
 public class AppointmentServiceRestTemplate {
 
-    public static final String APPOINTMENT_PATH = "http://localhost:8080/appointment/";
+    public static final String APPOINTMENT_PATH = "http://localhost:8081/appointment/";
     private final RestTemplate restTemplate;
 
     public AppointmentServiceRestTemplate() {
