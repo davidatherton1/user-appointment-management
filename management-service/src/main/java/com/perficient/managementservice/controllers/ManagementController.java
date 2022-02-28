@@ -99,6 +99,13 @@ public class ManagementController {
     @DeleteMapping("/management/user")
     public ResponseEntity<String> deleteUser(@RequestParam("id") UUID id) {
         try {
+
+            List<AppointmentDto> appts = managementService.getApptbyUserId(id);
+
+            appts.forEach(appt -> {
+                managementService.deleteAppt(appt.getId());
+            });
+
             String serverResponse = userService.deleteUser(id);
 
             return new ResponseEntity<>(serverResponse, HttpStatus.OK);
