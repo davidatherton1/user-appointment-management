@@ -43,6 +43,6 @@ function addUser(){
         dataType: "json"
     })
 
-    window.location.href = "http://localhost:8082"
+    window.location.href = "http://localhost:8082/"
 
 }
