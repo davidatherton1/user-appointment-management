@@ -47,7 +47,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         appt.setDescription(apptDto.getDescription());
         appt.setEndTime(apptDto.getEndTime());
         appt.setStartTime(apptDto.getStartTime());
-        appt.setUser(apptDto.getUser());
+        if (apptDto.getUser() != null){
+            appt.setUser(apptDto.getUser());
+        }
 
         return appointmentMapper.apptToApptDto(appointmentRepository.save(appt));
     }

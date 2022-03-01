@@ -2,6 +2,10 @@ function userInfo(row){
     window.location.href ='userInfo.html?id=' + row.getAttribute('uuid')
 }
 
+function updateAppt(row) {
+    window.location.href= 'updateAppointment.html?id=' + row.getAttribute("id");
+}
+
 function loadUserTable(){
     $.ajax({
         url: "http://localhost:8082/management/users/",
@@ -34,6 +38,44 @@ function loadUserTable(){
     })
 }
 
+// function loadUsersTable() {
+//     $.ajax({
+//         url: "http://localhost:8081/management/users",
+//         jsonp: "callback",
+//         dataType: "jsonp",
+//         headers: {'Access-Control-Allow-Origin': "*"},
+
+//         success: function(response) {
+//             var tableData = $(`<tr>
+//                         <th>First Name</th>
+//                         <th>Last name</th>
+//                         <th>Gender</th>
+//                         <th>Age</th>
+//                         <th>Email</th>
+//                         <th>Phone</th>
+//                     </tr>`);
+
+
+//             response.forEach(user => {
+//                 tableData.append(`<tr data-id='${user["id"]}'>
+//                     <td>${user["firstName"]}</td>
+//                     <td>${user["lastName"]}</td>
+//                     <td>${user["gender"]}</td>
+//                     <td>${user["age"]}</td>
+//                     <td>${user["emailAddress"]}</td>
+//                     <td>${user["phoneNumber"]}</td>
+//                 </tr>`);
+//             });
+
+//             $("#user-table").html(tableData);
+//         },
+
+//         error: function(response) {
+//             console.log(response);
+//         }
+
+//     });
+// }
 
 function onLoadUserInfo(){
 
@@ -80,9 +122,54 @@ function onLoadUserInfo(){
             description.innerHTML = element.description
             let button = newRow.insertCell()
             button.innerHTML = "<button onclick='deleteAppointment(this.parentNode.parentNode)'>Delete</button>"
+            let updateButton = newRow.insertCell();
+            updateButton.innerHTML = "<button onclick='updateAppt(this.parentNode.parentNode)'>Update</button>";
+
         })
     })
 
+}
+
+function updateAppointment() {
+    const queryString = window.location.search;
+
+    const urlParam = new URLSearchParams(queryString);
+
+    const appointmentId = urlParam.get('id');
+
+    console.log(appointmentId);
+
+    var idInput = $(`<input type='text' value='${appointmentId}' id='apptId'>`);
+    $("#id-container").html(idInput);
+}
+
+function onSubmitUpdateAppointment() {
+    const queryString = window.location.search;
+
+    const urlParam = new URLSearchParams(queryString);
+
+    const appointmentId = urlParam.get('id');
+
+    let formData = {
+        apptName: $("#apptName").val(),
+        apptType: $("#apptType").val(),
+        description: $("#description").val(),
+        startTime: $("#startTime").val(),
+        endTime: $("#endTime").val()
+    };
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        url: "http://localhost:8082/management/appointment/" + appointmentId,
+        data: JSON.stringify(formData),
+        dataType: "json"
+    });
+
+    window.location.href = "http://localhost:8082/index.html"
 }
 
 function deleteUser(){
