@@ -124,6 +124,7 @@ function onLoadUserInfo(){
             button.innerHTML = "<button onclick='deleteAppointment(this.parentNode.parentNode)'>Delete</button>"
             let updateButton = newRow.insertCell();
             updateButton.innerHTML = "<button onclick='updateAppt(this.parentNode.parentNode)'>Update</button>";
+
         })
     })
 
@@ -187,6 +188,7 @@ function deleteUser(){
             }
         })
 
+        window.location.href = '/'
     }
 
 }
