@@ -143,8 +143,13 @@ function updateAppointment() {
 }
 
 function onSubmitUpdateAppointment() {
+    const queryString = window.location.search;
+
+    const urlParam = new URLSearchParams(queryString);
+
+    const appointmentId = urlParam.get('id');
+
     let formData = {
-        id: $("#apptId").val(),
         apptName: $("#apptName").val(),
         apptType: $("#apptType").val(),
         description: $("#description").val(),
@@ -152,18 +157,18 @@ function onSubmitUpdateAppointment() {
         endTime: $("#endTime").val()
     };
 
-    console.log(formData);
-
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         type: "PUT",
-        url: "http://localhost:8082/management/appointment/",
+        url: "http://localhost:8082/management/appointment/" + appointmentId,
         data: JSON.stringify(formData),
         dataType: "json"
     });
+
+    window.location.href = "http://localhost:8082/index.html"
 }
 
 function deleteUser(){
@@ -182,7 +187,6 @@ function deleteUser(){
             }
         })
 
-        window.location.href = '/'
     }
 
 }
