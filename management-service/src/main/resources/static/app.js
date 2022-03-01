@@ -38,44 +38,6 @@ function loadUserTable(){
     })
 }
 
-// function loadUsersTable() {
-//     $.ajax({
-//         url: "http://localhost:8081/management/users",
-//         jsonp: "callback",
-//         dataType: "jsonp",
-//         headers: {'Access-Control-Allow-Origin': "*"},
-
-//         success: function(response) {
-//             var tableData = $(`<tr>
-//                         <th>First Name</th>
-//                         <th>Last name</th>
-//                         <th>Gender</th>
-//                         <th>Age</th>
-//                         <th>Email</th>
-//                         <th>Phone</th>
-//                     </tr>`);
-
-
-//             response.forEach(user => {
-//                 tableData.append(`<tr data-id='${user["id"]}'>
-//                     <td>${user["firstName"]}</td>
-//                     <td>${user["lastName"]}</td>
-//                     <td>${user["gender"]}</td>
-//                     <td>${user["age"]}</td>
-//                     <td>${user["emailAddress"]}</td>
-//                     <td>${user["phoneNumber"]}</td>
-//                 </tr>`);
-//             });
-
-//             $("#user-table").html(tableData);
-//         },
-
-//         error: function(response) {
-//             console.log(response);
-//         }
-
-//     });
-// }
 
 function onLoadUserInfo(){
 
@@ -191,6 +153,47 @@ function deleteUser(){
         window.location.href = '/'
     }
 
+}
+
+function updateUserOnClick() {
+    const queryString = window.location.search
+
+    const urlParam = new URLSearchParams(queryString)
+
+    const userId = urlParam.get('id')
+
+    console.log(userId);
+    window.location.href = 'http://localhost:8082/updateUser.html?id=' + userId;
+}
+
+function onSubmitUpdateUser() {
+    const queryString = window.location.search;
+
+    const urlParam = new URLSearchParams(queryString);
+
+    const userId = urlParam.get('id');
+
+    let userData = {
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+        age: $("#age").val(),
+        emailAddress: $("#emailAddress").val(),
+        phoneNumber: $("#phoneNumber").val(),
+        gender: $("#gender-select option:selected").val()
+    };
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        url: "http://localhost:8082/management/user?id=" + userId,
+        data: JSON.stringify(userData),
+        dataType: "json"
+    });
+
+    window.location.href = "http://localhost:8082/index.html"
 }
 
 function deleteAppointment(row){
