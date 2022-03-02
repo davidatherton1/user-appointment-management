@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Update Appointment</title>
+</head>
+
+<body onload="updateAppointment()">
+    <h1>Update Appointment</h1>
+    <form action="/">
+        <div id="id-container">
+            
+        </div>
+        
+        <div>
+            <label for="apptName">Appointment Name:</label>
+            <input type="text" id="apptName">
+        </div>
+
+        <div>
+            <label for="apptType">Appointment Type:</label>
+            <input type="text" id="apptType">
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description">
+        </div>
+
+        <div>
+            <label for="startTime">Start Time:</label>
+            <input type="datetime-local" id="startTime">
+        </div>
+
+        <div>
+            <label for="endTime">End Time:</label>
+            <input type="datetime-local" id="endTime">
+        </div>
+
+        <button onclick="onSubmitUpdateAppointment()">Update Appointment</button>
+    </form>
+</body>
+</html>

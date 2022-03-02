@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+</head>
+<body onload="onLoadUserInfo()">
+    <div>
+        <div>
+            <a href="/">Back</a>
+        </div>
+        <div>
+            <h1>User Info:</h1>
+        </div>
+        <div>
+            <p id="userFirst"><b>First Name: </b></p>
+        </div>
+        <div>
+            <p id="userLast"><b>Last Name: </b></p>
+        </div>
+        <div>
+            <p id="userAge"><b>Age: </b></p>
+        </div>
+        <div>
+            <p id="userGender"><b>Gender: </b></p>
+        </div>
+        <div>
+            <p id="userNumber"><b>Phone Number: </b></p>
+        </div>
+        <div>
+            <p id="userEmail"><b>Email Address: </b></p>
+        </div>
+        <div>
+            <button onclick="deleteUser()">Delete</button>
+        </div>
+        <div>
+            <button onclick="updateUserOnClick()">Update</button>
+        </div>
+    </div>
+    <div>
+        <h1>Appointments</h1>
+        <table id="appointmentTable">
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Description</th>
+            </tr>
+        </table>
+        <a href="addAppointment.html">Add Appointment</a>
+    </div>
+</body>
+</html>
