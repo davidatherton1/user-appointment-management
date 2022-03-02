@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -16,8 +17,8 @@ public class AppointmentDto {
 
     private UUID id;
 
-    private OffsetDateTime startTime;
-    private OffsetDateTime endTime;
+    private Date startTime;
+    private Date endTime;
 
     private String apptName;
     private String apptType;
