@@ -44,12 +44,42 @@ public class UserService {
         if (existingUser.isPresent()) {
             UserEntity currentUser = existingUser.get();
 
-            currentUser.setFirstName(userEntity.getFirstName() == null ? currentUser.getFirstName() : userEntity.getFirstName());
-            currentUser.setLastName(userEntity.getLastName() == null ? currentUser.getLastName() : userEntity.getLastName());
-            currentUser.setAge(userEntity.getAge() != userEntity.getAge() ? userEntity.getAge() : currentUser.getAge());
-            currentUser.setGender(userEntity.getGender() == null ? currentUser.getGender() : userEntity.getGender());
-            currentUser.setEmailAddress(userEntity.getEmailAddress() == null ? currentUser.getEmailAddress() : userEntity.getEmailAddress());
-            currentUser.setPhoneNumber(userEntity.getPhoneNumber() == null ? currentUser.getPhoneNumber() : userEntity.getPhoneNumber());
+            currentUser.setFirstName(
+                    isValidName(userEntity.getFirstName()) ?
+                            userEntity.getFirstName() :
+                            currentUser.getFirstName()
+            );
+
+            currentUser.setLastName(
+                    isValidName(userEntity.getLastName()) ?
+                            userEntity.getLastName() :
+                            currentUser.getLastName()
+            );
+
+            currentUser.setAge(
+                    isValidAge(userEntity.getAge()) ?
+                            userEntity.getAge() :
+                            currentUser.getAge()
+            );
+
+            currentUser.setGender(
+                    userEntity.getGender() == null ?
+                            currentUser.getGender() :
+                            userEntity.getGender()
+            );
+
+            currentUser.setEmailAddress(
+                    isValidEmail(userEntity.getEmailAddress()) ?
+                            userEntity.getEmailAddress() :
+                            currentUser.getEmailAddress()
+            );
+
+
+            currentUser.setPhoneNumber(
+                    isValidPhoneNumber(userEntity.getPhoneNumber()) ?
+                            userEntity.getPhoneNumber() :
+                            currentUser.getPhoneNumber()
+            );
 
             usersRepository.save(currentUser);
 
@@ -68,6 +98,27 @@ public class UserService {
         );
 
         usersRepository.deleteById(uuid);
+    }
+
+     private boolean isValidName(String name) {
+        return name != null &&
+                !name.isBlank() &&
+                !name.isEmpty();
      }
 
+     private boolean isValidAge(int age) {
+        return age >= 0;
+     }
+
+     private boolean isValidEmail(String email) {
+         return email != null &&
+                 !email.isBlank() &&
+                 !email.isEmpty();
+     }
+
+     private boolean isValidPhoneNumber(String phoneNumber) {
+         return phoneNumber != null &&
+                 !phoneNumber.isBlank() &&
+                 !phoneNumber.isEmpty();
+     }
 }

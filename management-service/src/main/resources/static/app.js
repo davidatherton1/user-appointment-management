@@ -162,7 +162,6 @@ function updateUserOnClick() {
 
     const userId = urlParam.get('id')
 
-    console.log(userId);
     window.location.href = 'http://localhost:8082/updateUser.html?id=' + userId;
 }
 
@@ -182,6 +181,8 @@ function onSubmitUpdateUser() {
         gender: $("#gender-select option:selected").val()
     };
 
+    console.log(userData);
+
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -190,10 +191,20 @@ function onSubmitUpdateUser() {
         type: "PUT",
         url: "http://localhost:8082/management/user?id=" + userId,
         data: JSON.stringify(userData),
-        dataType: "json"
+        dataType: "json",
+
+        success: function(response) {
+            console.log("Success");
+            console.log(response);
+        },
+        
+        error: function(err) {
+            console.log(err);
+        }
+
     });
 
-    window.location.href = "http://localhost:8082/index.html"
+    
 }
 
 function deleteAppointment(row){
