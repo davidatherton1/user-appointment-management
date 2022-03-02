@@ -44,12 +44,12 @@ public class UserService {
         if (existingUser.isPresent()) {
             UserEntity currentUser = existingUser.get();
 
-            currentUser.setFirstName(userEntity.getFirstName());
-            currentUser.setLastName(userEntity.getLastName());
-            currentUser.setAge(userEntity.getAge());
-            currentUser.setGender(userEntity.getGender());
-            currentUser.setEmailAddress(userEntity.getEmailAddress());
-            currentUser.setPhoneNumber(userEntity.getPhoneNumber());
+            currentUser.setFirstName(userEntity.getFirstName() == null ? currentUser.getFirstName() : userEntity.getFirstName());
+            currentUser.setLastName(userEntity.getLastName() == null ? currentUser.getLastName() : userEntity.getLastName());
+            currentUser.setAge(userEntity.getAge() != userEntity.getAge() ? userEntity.getAge() : currentUser.getAge());
+            currentUser.setGender(userEntity.getGender() == null ? currentUser.getGender() : userEntity.getGender());
+            currentUser.setEmailAddress(userEntity.getEmailAddress() == null ? currentUser.getEmailAddress() : userEntity.getEmailAddress());
+            currentUser.setPhoneNumber(userEntity.getPhoneNumber() == null ? currentUser.getPhoneNumber() : userEntity.getPhoneNumber());
 
             usersRepository.save(currentUser);
 
