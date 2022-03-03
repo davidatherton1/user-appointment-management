@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -24,7 +23,6 @@ public class UserServiceTests {
     public void userCreationTest() {
         UserEntity userEntity = new UserEntity();
 
-//        doNothing().when(userService).createUser(userEntity);
         when(userService.createUser(userEntity)).thenReturn(userEntity);
 
         userService.createUser(userEntity);
