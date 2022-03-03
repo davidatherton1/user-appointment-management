@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class UserControllerTest {
@@ -49,33 +50,59 @@ class UserControllerTest {
     public void test_GetUserByUUID_ShouldReturnAUser() {
         UUID uuid = UUID.randomUUID();
 
-        UserEntity user = new UserEntity();
-        user.setId(uuid);
-        userController.createUser(user);
+        UserEntity actualUser = new UserEntity();
+        actualUser.setId(uuid);
+        userController.createUser(actualUser);
 
-        when(userService.getUserById(uuid)).thenReturn(user);
+        when(userService.getUserById(uuid)).thenReturn(actualUser);
 
         UserEntity returnedUser = userController.getUserByUUID(uuid).getBody();
 
-        assertEquals(user, returnedUser);
+        assertEquals(actualUser, returnedUser);
     }
 
     @Test
     public void test_UpdateUser_ShouldThrowResourceNotFoundException() {
-        UUID uuid = UUID.randomUUID();
+        UUID randomUUID = UUID.randomUUID();
 
-        UserEntity user = new UserEntity();
-        user.setId(uuid);
-        userController.createUser(user);
+        when(
+                userService.updateUser(new UserEntity(), randomUUID))
+                .thenThrow(
+                        new ResourceNotFoundException("User", "UUID", randomUUID)
+                );
 
-        when(userService.updateUser(new UserEntity(), uuid)).thenReturn(new UserEntity());
 
-        UserEntity updateUser = new UserEntity();
-        updateUser.setFirstName("update");
+        HttpStatus expectedStatusCode = HttpStatus.NOT_FOUND;
+        ResponseEntity<UserEntity> returnMessage = userController.updateUser(randomUUID, new UserEntity());
 
-        UserEntity returnedUpdatedUser = userController.updateUser(uuid, updateUser).getBody();
+        assertEquals(expectedStatusCode, returnMessage.getStatusCode());
+    }
 
-        assertNotEquals(user, returnedUpdatedUser);
+    @Test
+    public void test_DeleteUser_ShouldThrowResourceNotFoundException() {
+        UUID randomUUID = UUID.randomUUID();
+
+        doThrow(new ResourceNotFoundException("User", "UUID", randomUUID)).when(userService).deleteUser(randomUUID);
+
+        userController.removeUser(randomUUID);
+    }
+
+    @Test
+    public void test_DeleteUser_ShouldGiveOKStatusCode() {
+        // Insert user first to be deleted
+        UUID randomUUID = UUID.randomUUID();
+
+        UserEntity actualUser = new UserEntity();
+        actualUser.setId(randomUUID);
+
+        userController.createUser(actualUser);
+
+        doNothing().when(userService).deleteUser(randomUUID);
+
+        ResponseEntity<String> controllerResponse = userController.removeUser(randomUUID);
+        HttpStatus expectedStatusCode = HttpStatus.OK;
+
+        assertEquals(expectedStatusCode, controllerResponse.getStatusCode());
     }
 
 }
