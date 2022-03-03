@@ -9,21 +9,21 @@
 </head>
 <body>
     <h1>Add User</h1>
-    <form action="/">
+    <form action="/" onsubmit="addUser()">
         <div>
             <label for="firstName">First Name:</label>
-            <input type="text" id="firstName">
+            <input type="text" id="firstName" required>
         </div>
 
         <div>
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName">
+            <input type="text" id="lastName" required>
         </div>
 
 
         <div>
             <label for="age">Age:</label>
-            <input type="text" id="age">
+            <input type="number" id="age" min="0" max="121" required>
         </div>
 
         <div>
@@ -37,17 +37,15 @@
 
         <div>
             <label for="emailAddress">Email:</label>
-            <input type="text" id="emailAddress">
+            <input type="email" id="emailAddress" required>
         </div>
 
         <div>
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber">
+            <input type="tel" id="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
         </div>
-
         <div>
-<!--            <input type="submit">-->
-            <button onclick="addUser()">Submit</button>
+            <input type="submit">
         </div>
 
     </form>

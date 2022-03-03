@@ -9,10 +9,10 @@
 </head>
 <body onload="onAddApptLoad()">
     <h1>Add appointment</h1>
-    <form action="/">
+    <form action="/" onsubmit="addAppt()">
         <div>
             <label for="apptName">Appointment Name:</label>
-            <input type="text" id="apptName">
+            <input type="text" id="apptName" required>
         </div>
 
         <div>
@@ -27,12 +27,12 @@
 
         <div>
             <label for="startTime">Start Time:</label>
-            <input type="datetime-local" id="startTime">
+            <input type="datetime-local" id="startTime" required>
         </div>
 
         <div>
             <label for="endTime">End Time:</label>
-            <input type="datetime-local" id="endTime">
+            <input type="datetime-local" id="endTime" required>
         </div>
 
         <div>
@@ -40,8 +40,7 @@
         </div>
 
         <div>
-<!--            <input type="submit">-->
-            <button onclick="addAppt()">Submit</button>
+            <input type="submit">
         </div>
     </form>
 </body>
