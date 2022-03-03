@@ -38,6 +38,7 @@ function loadUserTable(){
     })
 }
 
+
 function onLoadUserInfo(){
 
     const queryString = window.location.search
@@ -152,6 +153,58 @@ function deleteUser(){
         window.location.href = '/'
     }
 
+}
+
+function updateUserOnClick() {
+    const queryString = window.location.search
+
+    const urlParam = new URLSearchParams(queryString)
+
+    const userId = urlParam.get('id')
+
+    window.location.href = 'http://localhost:8082/updateUser.html?id=' + userId;
+}
+
+function onSubmitUpdateUser() {
+    const queryString = window.location.search;
+
+    const urlParam = new URLSearchParams(queryString);
+
+    const userId = urlParam.get('id');
+
+    let userData = {
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+        age: $("#age").val(),
+        emailAddress: $("#emailAddress").val(),
+        phoneNumber: $("#phoneNumber").val(),
+        gender: $("#gender-select option:selected").val()
+    };
+
+    console.log(userData);
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        url: "http://localhost:8082/management/user?id=" + userId,
+        data: JSON.stringify(userData),
+        dataType: "json",
+
+        success: function(response) {
+            console.log("Success");
+            console.log(response);
+        },
+        
+        error: function(err) {
+            console.log(err);
+        }
+
+    });
+
+    
 }
 
 function deleteAppointment(row){
