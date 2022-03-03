@@ -103,6 +103,21 @@ function updateAppointment() {
 
     var idInput = $(`<input type='text' value='${appointmentId}' id='apptId'>`);
     $("#id-container").html(idInput);
+
+    $.ajax({
+        url: "http://localhost:8082/management/appointment/" + appointmentId,
+        type: "GET",
+        success: function (data){
+            document.getElementById("apptName").value = data.apptName
+            document.getElementById("apptType").value = data.apptType
+            document.getElementById("description").value = data.description
+            document.getElementById("startTime").value = data.startTime.substring(0,16)
+            document.getElementById("endTime").value = data.endTime.substring(0,16)
+        },
+        error: function (err){
+
+        }
+    })
 }
 
 function onSubmitUpdateAppointment() {

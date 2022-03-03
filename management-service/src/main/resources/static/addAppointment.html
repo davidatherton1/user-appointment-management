@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Title</title>
 </head>
-<body>
+<body onload="onAddApptLoad()">
     <h1>Add appointment</h1>
     <form action="/">
         <div>
@@ -36,8 +36,7 @@
         </div>
 
         <div>
-            <label for="user">Select User:</label>
-            <select id="user"> </select>
+            <p id="user-name">User: </p>
         </div>
 
         <div>

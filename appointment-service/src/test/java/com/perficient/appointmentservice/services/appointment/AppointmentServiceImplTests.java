@@ -95,8 +95,6 @@ public class AppointmentServiceImplTests {
                 .apptName("Test Appointment")
                 .apptType("")
                 .description("")
-                .endTime(OffsetDateTime.now())
-                .startTime(OffsetDateTime.now())
                 .user(UUID.randomUUID())
                 .build();
         Appointment appt = new Appointment();
