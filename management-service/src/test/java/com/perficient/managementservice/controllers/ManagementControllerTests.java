@@ -3,6 +3,7 @@ package com.perficient.managementservice.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perficient.managementservice.services.appointment.AppointmentDto;
 import com.perficient.managementservice.services.management.ManagementServiceImpl;
+import com.perficient.managementservice.services.management.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,6 +31,9 @@ public class ManagementControllerTests {
 
     @MockBean
     ManagementServiceImpl managementService;
+
+    @MockBean
+    UserServiceImpl userService;
 
     @Test
     void getAppt() throws Exception{

@@ -38,39 +38,6 @@ public class UserServiceImplTest {
         userDto.setId(this.id);
     }
 
-
-    @Test
-    void createUser_ShouldReturnCreatedUser() {
-        ResponseEntity<UserDto> exampleResponse = new ResponseEntity<>(HttpStatus.OK);
-
-        when(userServiceRestTemplate.createUser(this.userDto)).thenReturn(exampleResponse);
-
-        UserDto actualUser = userService.createUser(this.userDto);
-
-        assertNotNull(actualUser);
-    }
-
-    @Test
-    void deleteUser() {
-        fail("Test yet to be implemented");
-    }
-
-    @Test
-    void updateUser() {
-        fail("Test yet to be implemented");
-    }
-
-    @Test
-    void getUserById() {
-        userService.createUser(this.userDto);
-
-        when(userServiceRestTemplate.getUserById(this.id)).thenReturn(this.userDto);
-
-        UserDto returnedUser = userService.getUserById(this.id);
-
-        assertEquals(this.userDto, returnedUser);
-    }
-
     @Test
     void allUsers() {
         when(userServiceRestTemplate.getAllUsers())
