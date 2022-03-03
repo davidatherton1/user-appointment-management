@@ -35,18 +35,40 @@ public class UserServiceImplTest {
         this.userDto = new UserDto();
         this.id = UUID.randomUUID();
 
-        userDto.setId(this.id);
+        this.userDto.setId(this.id);
     }
 
     @Test
-    void allUsers() {
+    public void test_AllUsers_ShouldReturnEmptyList() {
         when(userServiceRestTemplate.getAllUsers())
-                .thenReturn(new ArrayList<>());
+                .thenReturn(new ArrayList<UserDto>());
 
         List<UserDto> resultAllUsers = userService.allUsers();
 
 
         assertNotNull(resultAllUsers);
         assertEquals(new ArrayList<UserDto>(), resultAllUsers);
+    }
+
+    @Test
+    public void test_CreateUser_ShouldReturnCreatedUser() {
+        when(
+                userServiceRestTemplate.createUser(this.userDto))
+                    .thenReturn(
+                            new ResponseEntity<>(this.userDto, HttpStatus.OK)
+                    );
+
+        UserDto actualCreatedUser = userService.createUser(this.userDto);
+
+        assertEquals(this.userDto, actualCreatedUser);
+    }
+
+    @Test
+    public void test_DeleteUser_ShouldDeleteWithMessage() {
+        when(userServiceRestTemplate.deleteUserById(this.id)).thenReturn(new String());
+
+        String controllerMessage = userService.deleteUser(this.id);
+
+        assertNotNull(controllerMessage);
     }
 }
