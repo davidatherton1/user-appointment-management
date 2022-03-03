@@ -44,6 +44,7 @@ public class UserService {
         if (existingUser.isPresent()) {
             UserEntity currentUser = existingUser.get();
 
+
             currentUser.setFirstName(
                     isValidName(userEntity.getFirstName()) ?
                             userEntity.getFirstName() :
@@ -80,6 +81,7 @@ public class UserService {
                             userEntity.getPhoneNumber() :
                             currentUser.getPhoneNumber()
             );
+
 
             usersRepository.save(currentUser);
 

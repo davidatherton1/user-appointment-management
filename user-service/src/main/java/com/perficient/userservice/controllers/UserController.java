@@ -55,7 +55,6 @@ public class UserController {
         } catch (ResourceNotFoundException rnfe) {
             return new ResponseEntity(rnfe.getMessage(), HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping("/user")
