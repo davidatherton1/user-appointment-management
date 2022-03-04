@@ -6,8 +6,10 @@ import com.perficient.appointmentservice.repositories.AppointmentRepository;
 import com.perficient.appointmentservice.services.AppointmentServiceImpl;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.perficient.appointmentservice.web.controllers.NotFoundException;
 import com.perficient.appointmentservice.web.mappers.AppointmentMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -108,6 +110,19 @@ public class AppointmentServiceImplTests {
         verify(appointmentRepository).save(appt);
         verify(appointmentMapper).apptToApptDto(appt);
 
+    }
+
+    @Test
+    void getByIdThrowsNotFound(){
+        UUID id = UUID.randomUUID();
+        assertThrows(NotFoundException.class, () -> service.getApptById(id));
+    }
+
+    @Test
+    void updateByIdThrowsNotFound(){
+        UUID id = UUID.randomUUID();
+        AppointmentDto appt = new AppointmentDto();
+        assertThrows(NotFoundException.class, () -> service.updateAppt(id, appt));
     }
 
 }

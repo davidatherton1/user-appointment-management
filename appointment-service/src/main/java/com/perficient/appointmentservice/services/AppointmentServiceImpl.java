@@ -16,8 +16,6 @@ import java.util.UUID;
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
 
-    //TODO: Add exception handling
-    //TODO: Add comments and logging
 
     @Autowired
     private AppointmentRepository appointmentRepository;
